@@ -10,10 +10,8 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CatTest {
-    Feline feline = new Feline();
-    Cat cat = new Cat(feline);
     @Mock
-    Animal animal = new Animal();
+    Feline feline;
 
     @Test
     public void getSoundCatTest () {
@@ -25,9 +23,10 @@ public class CatTest {
 
     @Test
     public void getFoodCatTest () throws Exception {
-        Mockito.when(animal.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
+        Cat cat = new Cat(feline);
+        Mockito.when(feline.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
         List<String> actual = cat.getFood();
 
-        assertEquals("Введено некорректное значение еды для кошки",animal.getFood("Хищник"), actual);
+        assertEquals("Введено некорректное значение еды для кошки",feline.getFood("Хищник"), actual);
     }
 }
