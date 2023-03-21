@@ -26,7 +26,8 @@ public class LionManeTest {
 
     @Test
     public void doesHaveManeTest() throws Exception {
-        Lion lion = new Lion(sex);
+        Feline feline = new Feline();
+        Lion lion = new Lion(sex, feline);
         assertEquals(expected, lion.doesHaveMane());
     }
 }

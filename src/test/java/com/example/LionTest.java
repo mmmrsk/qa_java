@@ -1,11 +1,11 @@
 package com.example;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.junit.jupiter.api.Assertions;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class LionTest {
 
     @Test
     public void getKittensLionTest() throws Exception {
-        Lion lion = new Lion(feline);
+        Lion lion = new Lion("Самка", feline);
         Mockito.when(feline.getKittens()).thenReturn(1);
         assertEquals(1, lion.getKittens());
     }
@@ -28,9 +28,7 @@ public class LionTest {
     public void exceptionLionTest() throws Exception {
 
         String sex = "";
-        Exception thrown = Assertions.assertThrows(Exception.class, () -> {
-            Lion lion = new Lion(sex);
-        }, "Exception was expected");
+        Exception thrown = Assert.assertThrows(Exception.class, () -> new Lion(sex, new Feline()).notify());
 
         assertEquals("Используйте допустимые значения пола животного - самец или самка", thrown.getMessage());
 
@@ -38,7 +36,7 @@ public class LionTest {
 
     @Test
     public void getFoodLionTest() throws Exception {
-        Lion lion = new Lion(feline);
+        Lion lion = new Lion("Самец", feline);
         Mockito.when(feline.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
         assertEquals(List.of("Животные", "Птицы", "Рыба"), lion.getFood());
     }
